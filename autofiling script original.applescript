@@ -23,13 +23,13 @@ tell application "Mail"
         -- All future attachments from this sender will the be put here.
         -- parse email name by @ and . to get to first part of email name
         
-		-- updated script with suggestion from Mark at markosx.com
-		-- Just wanted to give you another tip. You can extract the address without the 
-		-- "fullname < email@address > " format by using the "extract address from" command.
-		-- then altered to get at the name at request of reader at scrubbs.me
-		
-		set theExtractAddress to extract name from (sender of eachMessage)
-		set subFolder to do shell script "echo " & theExtractAddress & " |awk -F@ '{print $1}' |awk -F. '{print $1}'"
+        set subName to (sender of eachMessage)
+        set AppleScript's text item delimiters to "<"
+        set fName to text item 2 in subName
+        set AppleScript's text item delimiters to "@"
+        set fName to text item 1 in fName
+        set AppleScript's text item delimiters to "."
+        set subFolder to text item 1 in fName
         
         
         -- use the unix /bin/test command to test if the timeStamp folder  exists. if not then create it and any intermediate directories as required
