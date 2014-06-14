@@ -51,4 +51,14 @@ tell application "Mail"
         end try
     end repeat
     
+-- adapted from script by Ben Waldie at http://www.peachpit.com/blogs/blog.aspx?uk=Mac-Productivity-Quick-Scripts-and-Workflows--Archiving-Selected-Mail-Messages
+
+        set theArchiveMailboxName to "Processed"
+        if (mailbox theArchiveMailboxName exists) = false then
+            make new mailbox with properties {name:theArchiveMailboxName}
+        end if
+        repeat with aMessage in theMessages
+            move aMessage to mailbox theArchiveMailboxName
+        end repeat
+    
 end tell
